@@ -12,6 +12,40 @@
 <img src="./OP_s.png">
 </div>
 <audio src="./OPGo.mp3"></audio>
+<script src=""></script>
+<script>
+        const openGenshinImpact = time => {
+            const gameURLScheme = 'genshinimpact://'
+
+            const redirectToAppStore = () => {
+                window.location.href = ''
+            }
+
+            const redirectToGooglePlay = () => {
+                window.location.href = ''
+            }
+
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                setTimeout(() => {
+                    window.location.href = gameURLScheme
+                    redirectToAppStore()
+                }, time)
+            } else if (/Android/.test(navigator.userAgent)) {
+                setTimeout(() => {
+                    const intentURI = `intent://${gameURLScheme}#Intent;package=com.miHoYo.GenshinImpact;scheme=${gameURLScheme};end`
+                    window.location.href = intentURI
+                    
+                    redirectToGooglePlay()
+                }, time)
+            } else {
+                setTimeout(redirectToAppStore, time)
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const audio = document.querySelector('audio')
+            const load = document.querySelector('.load')
+
             swal({
                 title: '',
                 text: '确定启动原神么？',
